@@ -780,19 +780,36 @@ export function createGenericArray(
   );
 }
 
+<<<<<<< HEAD
 // This function removes all instances of a decorator by its name.
 // in case the same decorator exists multiple times, it will be removed from all locations
 export function removeDecoratorByName(
   node: ASTNode,
   decoratorName: string
 ): boolean {
+=======
+/**
+ * Returns the first decorator with a specific name from the given AST
+ * @param ast the AST to return the decorator from
+ */
+export function findFirstDecoratorByName(
+  node: ASTNode,
+  decoratorName: string
+): namedTypes.Decorator {
+>>>>>>> origin/feat/dsg-selective-generation
   let decorator: namedTypes.ClassDeclaration | null = null;
   recast.visit(node, {
     visitDecorator(path) {
       const callee = path.get("expression", "callee");
+<<<<<<< HEAD
       if (callee.value && callee.value.property?.name === decoratorName) {
         decorator = path.value;
         path.prune();
+=======
+      if (callee.value && callee.value.name === decoratorName) {
+        decorator = path.value;
+        return false;
+>>>>>>> origin/feat/dsg-selective-generation
       }
       return this.traverse(path);
     },
@@ -817,8 +834,17 @@ export function removeDecoratorByName(
   });
 
   if (!decorator) {
+<<<<<<< HEAD
     return false;
   }
 
   return true;
+=======
+    throw new Error(
+      `Could not find class decorator with the name ${decoratorName} in provided AST node`
+    );
+  }
+
+  return decorator;
+>>>>>>> origin/feat/dsg-selective-generation
 }

@@ -28,6 +28,7 @@ import ScreenResolutionMessage from "../Layout/ScreenResolutionMessage";
 import Commits from "../VersionControl/Commits";
 import NavigationTabs from "../Layout/NavigationTabs";
 import SyncWithGithubPage from "./git/SyncWithGithubPage";
+import AppSettingsPage from "./appSettings/AppSettingsPage";
 
 export type ApplicationData = {
   app: models.App;
@@ -196,6 +197,11 @@ function ApplicationLayout({ match }: Props) {
             to={`/${application}/github`}
             icon="github"
           />
+          <MenuItem
+            title="App settings"
+            to={`/${application}/appSettings`}
+            icon="config-app"
+          />
         </MainLayout.Menu>
         <MainLayout.Content>
           <div className={`${CLASS_NAME}__app-container`}>
@@ -226,6 +232,10 @@ function ApplicationLayout({ match }: Props) {
               <RouteWithAnalytics
                 path="/:application/github"
                 component={SyncWithGithubPage}
+              />
+              <Route
+                path="/:application/appSettings"
+                component={AppSettingsPage}
               />
               <Route path="/:application/" component={ApplicationHome} />
             </Switch>
